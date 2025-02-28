@@ -1,0 +1,66 @@
+@import 'tailwindcss';
+/* Transition for smooth opening and closing */
+.section {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.section.open {
+  max-height: 500px; /* Adjust this value based on the content height */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* Scrollbar width */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #a0a7ff; /* Scrollbar color */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #eef2ff; /* Hover color */
+}
+
+/* WebKit Browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 8px; /* Adjust width */
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f0f0; /* Track color */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b; /* Thumb color */
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0f172a; /* Darker on hover */
+}
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #a0a7ff #f0f0f0;
+}
+
+.p-tabview-nav {
+  display: flex;
+  justify-content: center;
+}
+
+@theme {
+  --color-primary: #4f46e5;
+  --color-secondary: #eef2ff;
+  --color-tertiary: #a0a7ff;
+}
