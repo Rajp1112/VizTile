@@ -11,7 +11,7 @@ const roomImages = {
   Kitchen: ['/assets/Rooms/kitchen1.png'],
   'Meeting Room': ['/assets/Rooms/meetingroom1.png'],
   Classroom: ['/assets/Rooms/classroom1.png'],
-  Bathroom: ['/assets/Rooms/bathroom1.png'],
+  Bathroom: ['/assets/Rooms/bathroom1.png', '/assets/Rooms/bathroom2.png'],
 };
 
 const categories = Object.keys(roomImages).map((category) => ({

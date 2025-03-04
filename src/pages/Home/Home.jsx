@@ -14,7 +14,6 @@ import ProductKeyFeatures from './ProductKeyFeatures';
 import IntroContent from './IntroContent';
 import Contact from './Contact';
 import Hero from './hero';
-import WhyWeAreBetter from './WhyWeAreBetter';
 import HeroFactors from './HeroFactors';
 import Footer from '../../components/Footer';
 

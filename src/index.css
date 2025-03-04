@@ -1,5 +1,8 @@
 @import 'tailwindcss';
-/* Transition for smooth opening and closing */
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
 .section {
   max-height: 0;
   overflow: hidden;

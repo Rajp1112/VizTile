@@ -7,6 +7,7 @@ import { LivingRoomModel2 } from '../Models/LivingRoomModel/LivingRoomModel2';
 import { MeetingRoomModel1 } from '../Models/MeetingRoomModel/MeetingRoomModel1';
 import { ClassRoomModel1 } from '../Models/ClaasRoomModel/ClassRoomModel1';
 import { BathRoomModel1 } from '../Models/BathRoomModel/BathRoomModel1';
+import { BathRoomModel2 } from '../Models/BathRoomModel/BathRoomModel2';
 
 const RoomCanvas = ({
   pathname,
@@ -78,6 +79,14 @@ const RoomCanvas = ({
         enableZoom: true,
         minDistance: 1.5,
         maxDistance: 2.5,
+      },
+      '/bathroom/2': {
+        position: [5, 4, 1.5],
+        minPolarAngle: 0.9,
+        maxPolarAngle: 1.2,
+        minAzimuthAngle: -0.7,
+        maxAzimuthAngle: 0.5,
+        model: BathRoomModel2,
       },
     }),
     []

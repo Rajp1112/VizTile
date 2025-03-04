@@ -5,9 +5,8 @@ import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import TilesView from './pages/TilesView/TilesView';
-// import Kitchen1 from './pages/Rooms/Kitchen/Kitchen1';
-import BedRoom1 from './pages/Rooms/BedRoom/BedRoom1';
 import Loader from './components/Loader';
+import ProductExplainSection from './pages/Home/ProductExplainSection/ProductExplainSection';
 
 const Kitchen1 = lazy(() => import('./pages/Rooms/Kitchen/Kitchen1'));
 
@@ -26,8 +25,8 @@ function App() {
           <Route path='/meetingroom/1' element={<Kitchen1 />} />
           <Route path='/classroom/1' element={<Kitchen1 />} />
           <Route path='/bathroom/1' element={<Kitchen1 />} />
-
-          <Route path='/bedroom/1' element={<BedRoom1 />} />
+          <Route path='/bathroom/2' element={<Kitchen1 />} />
+          <Route path='/product/:id' element={<ProductExplainSection />} />
         </Routes>
       </Suspense>
     </Router>
