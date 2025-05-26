@@ -7,6 +7,8 @@ import 'primeicons/primeicons.css';
 import TilesView from './pages/TilesView/TilesView';
 import Loader from './components/Loader';
 import ProductExplainSection from './pages/Home/ProductExplainSection/ProductExplainSection';
+import AdminDashboard from './pages/Dashboard/AdminDashboard';
+import MainDashboard from './pages/Dashboard/MainDashboard';
 
 const Kitchen1 = lazy(() => import('./pages/Rooms/Kitchen/Kitchen1'));
 
@@ -17,6 +19,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/tiles-view' element={<TilesView />} />
+          {/* Admin Routes  */}
+          <Route path='/admin' element={<MainDashboard />} />
 
           {/* Room Routes */}
           <Route path='/kitchen/1' element={<Kitchen1 />} />
