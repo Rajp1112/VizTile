@@ -5,7 +5,7 @@ import { faEye, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
 import Logo from '/assets/LOGO/Logo2.png';
 
-const Navbar = () => {
+const Navbar = ({ user, isLoggedIn }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('home');
@@ -114,7 +114,7 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <div className='hidden md:flex'>
+        <div className='hidden md:flex gap-1'>
           <button
             className='flex gap-3 items-center bg-indigo-600 hover:opacity-90 cursor-pointer text-white font-bold py-2 px-4 rounded-full'
             onClick={() => navigate('/tiles-view')}
@@ -122,6 +122,45 @@ const Navbar = () => {
             <FontAwesomeIcon icon={faEye} />
             Visualize Your Tiles
           </button>
+          {!isLoggedIn && (
+            <>
+              <button
+                className='flex gap-3 items-center bg-indigo-600 hover:opacity-90 cursor-pointer text-white font-bold py-2 px-4 rounded-full'
+                onClick={() => navigate('/login')}
+              >
+                {/* <FontAwesomeIcon icon={faEye} /> */}
+                Login
+              </button>
+              <button
+                className='flex gap-3 items-center bg-indigo-600 hover:opacity-90 cursor-pointer text-white font-bold py-2 px-4 rounded-full'
+                onClick={() => navigate('/register')}
+              >
+                Register
+              </button>
+            </>
+          )}
+          {isLoggedIn && (
+            <>
+              <button
+                className='flex gap-3 items-center bg-indigo-600 hover:opacity-90 cursor-pointer text-white font-bold py-2 px-4 rounded-full'
+                onClick={() => navigate('/logout')}
+              >
+                Logout
+              </button>
+
+              <button className='flex gap-3 items-center bg-indigo-600 hover:opacity-90 cursor-pointer text-white font-bold py-2 px-4 rounded-full'>
+                {user?.userData?.username}
+              </button>
+              {user?.userData?.isAdmin && (
+                <button
+                  className='flex gap-3 items-center bg-indigo-600 hover:opacity-90 cursor-pointer text-white font-bold py-2 px-4 rounded-full'
+                  onClick={() => navigate('/admin')}
+                >
+                  Admin
+                </button>
+              )}
+            </>
+          )}
         </div>
       </div>
     </nav>

@@ -16,16 +16,20 @@ import Contact from './Contact';
 import Hero from './hero';
 import HeroFactors from './HeroFactors';
 import Footer from '../../components/Footer';
+import { useAuth } from '../../store/auth';
 
 const Home = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const { isLoggedIn, user, userLoading, reloadUser } = useAuth();
 
   useEffect(() => {
-    // Simulate loading delay
+    reloadUser();
+  }, []);
+  useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 3000); // Change time as needed
+    }, 3000);
   }, []);
 
   return (
@@ -44,7 +48,7 @@ const Home = () => {
               backgroundRepeat: 'no-repeat',
             }}
           >
-            <Navbar />
+            <Navbar user={user} isLoggedIn={isLoggedIn} />
             <Hero />
           </div>
           <ProductDisplaySection />
