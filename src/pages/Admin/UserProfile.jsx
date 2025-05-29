@@ -85,7 +85,7 @@ const UserProfile = ({ user }) => {
                 type='text'
                 id='address'
                 className='w-full text-white p-2 border border-[#3e4860] rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm bg-[#3a445d]'
-                defaultValue='Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09'
+                defaultValue={user?.userData?.address}
               />
             </div>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-6 mb-6'>
@@ -100,7 +100,7 @@ const UserProfile = ({ user }) => {
                   type='text'
                   id='city'
                   className='w-full text-white p-2 border border-[#3e4860] rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm bg-[#3a445d]'
-                  defaultValue='Mike'
+                  defaultValue={user?.userData?.city}
                 />
               </div>
               <div>
@@ -114,7 +114,7 @@ const UserProfile = ({ user }) => {
                   type='text'
                   id='country'
                   className='w-full text-white p-2 border border-[#3e4860] rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm bg-[#3a445d]'
-                  defaultValue='Andrew'
+                  defaultValue={user?.userData?.country}
                 />
               </div>
               <div>
@@ -128,7 +128,7 @@ const UserProfile = ({ user }) => {
                   type='text'
                   id='postalCode'
                   className='w-full text-white p-2 border border-[#3e4860] rounded-md focus:outline-none focus:ring-1 focus:ring-indigo-500 text-sm bg-[#3a445d]'
-                  placeholder='Postal Code'
+                  placeholder={user?.userData?.postal_code}
                 />
               </div>
             </div>
@@ -182,7 +182,7 @@ const UserProfile = ({ user }) => {
               {user?.userData?.username}
             </h3>{' '}
             {/* Adjusted margin-top */}
-            <p className='text-sm text-gray-400 mb-2'>michael24</p>
+            <p className='text-sm text-gray-400 mb-2'>{user?.userData?.city}</p>
             <p className='text-xs text-gray-500 mb-4 px-4'>
               "Lamborghini Mercy. Your chick so thirsty, I'm in that two seat
               Lambo."

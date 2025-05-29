@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../store/auth';
 import LoginLoader from './LoginLoader'; // Assuming LoginLoader is the correct component
+import { toast } from 'react-toastify';
+import Loader from './Loader';
 
 const Register = () => {
   const {
@@ -33,13 +35,16 @@ const Register = () => {
           storeTokenInLS(res_data.token);
           navigate('/');
           setLoading(false);
+          toast.success(res_data.msg);
         } else {
           console.log(res_data.msg);
           setLoading(false);
+          toast.error(res_data.msg);
         }
       } else {
         console.error('Invalid credentials');
         setLoading(false);
+        console.log(errors);
       }
     } catch (error) {
       console.error('An error occurred:', error);
@@ -54,7 +59,7 @@ const Register = () => {
     >
       {' '}
       {loading ? (
-        <LoginLoader message='Registration Successful. Redirecting...' />
+        <Loader />
       ) : (
         <div className='bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-gray-900 via-gray-900 to-purple-800 bottom-0 leading-5 h-full w-full overflow-hidden'>
           <div className='relative   min-h-screen  sm:flex sm:flex-row  justify-center bg-transparent rounded-3xl shadow-xl'>
@@ -164,18 +169,18 @@ const Register = () => {
                       POSTAL CODE{' '}
                     </label>{' '}
                     <input
-                      {...register('postalCode', { required: true })}
+                      {...register('postal_code', { required: true })}
                       className='w-full px-3 py-2 border rounded'
                       style={{ backgroundColor: 'transparent', color: '#000' }}
                     />{' '}
-                    {errors.postalCode && (
+                    {errors.postal_code && (
                       <span className='text-red-500 text-xs'>
                         Postal Code is required
                       </span>
                     )}{' '}
                   </div>
                 </div>
-                <div className='mb-4'>
+                {/* <div className='mb-4'>
                   {' '}
                   <label className='block text-sm font-bold mb-2 text-black'>
                     ABOUT ME
@@ -186,7 +191,7 @@ const Register = () => {
                     rows='2'
                     style={{ backgroundColor: 'transparent', color: '#000' }}
                   ></textarea>
-                </div>
+                </div> */}
                 <div className='mb-4'>
                   {' '}
                   <label className='block text-sm font-bold mb-2 text-black'>
@@ -233,13 +238,13 @@ const Register = () => {
               </form>
             </div>
             <svg
-              class='absolute bottom-0 left-0 '
+              className='absolute bottom-0 left-0 '
               xmlns='http://www.w3.org/2000/svg'
               viewBox='0 0 1440 320'
             >
               <path
                 fill='#fff'
-                fill-opacity='1'
+                fillOpacity='1'
                 d='M0,0L40,42.7C80,85,160,171,240,197.3C320,224,400,192,480,154.7C560,117,640,75,720,74.7C800,75,880,117,960,154.7C1040,192,1120,224,1200,213.3C1280,203,1360,149,1400,122.7L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z'
               ></path>
             </svg>

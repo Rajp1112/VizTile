@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../store/auth';
 
 import { toast } from 'react-toastify';
-import LoginLoader from '../../components/LoginLoader';
+import Loader from '../../components/Loader';
 
 const Login = () => {
   const {
@@ -49,7 +49,7 @@ const Login = () => {
   return (
     <div className='flex items-center justify-center min-h-screen bg-gray-100'>
       {loading ? (
-        <LoginLoader message='Please wait, logging you in...' />
+        <Loader />
       ) : (
         <div className='w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md'>
           <h2 className='text-2xl font-bold text-center'>Login</h2>
