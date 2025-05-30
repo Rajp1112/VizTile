@@ -108,7 +108,11 @@ export default function UserDataTable({ users }) {
           No data available
         </div>
       }
-      style={{ height: '200px', borderCollapse: 'separate !important' }}
+      style={{
+        height: '200px',
+        borderCollapse: 'separate !important',
+        padding: '20px',
+      }}
       showGridlines
       stripedRows
       size='large'
@@ -124,7 +128,7 @@ export default function UserDataTable({ users }) {
               className='.p-column-filter-menu-button has-tooltip'
               headerStyle={{
                 whiteSpace: 'nowrap',
-                backgroundColor: '#680bf3',
+                backgroundColor: 'oklch(0.28 0.04 260.34)',
                 color: '#ffffff',
                 fontSize: '1.3rem',
                 fontWeight: '600',
@@ -135,6 +139,7 @@ export default function UserDataTable({ users }) {
               bodyStyle={{
                 color: '#000',
                 fontSize: '1.2rem',
+                backgroundColor: 'oklch(0.96 0.02 272.46)',
               }}
               filter={col.filter}
               filterPlaceholder={col.filterPlaceholder}
@@ -142,57 +147,6 @@ export default function UserDataTable({ users }) {
               body={(row) => {
                 return row[col.key];
               }}
-              align={'center'}
-              alignHeader={'center'}
-            />
-          );
-        } else {
-          return (
-            <Column
-              key={col.key}
-              field={col.key}
-              header={'View Details'}
-              className='.p-column-filter-menu-button has-tooltip'
-              headerStyle={{
-                whiteSpace: 'nowrap',
-                backgroundColor: '#680bf3',
-
-                color: '#ffffff',
-                fontSize: '1.3rem',
-                fontWeight: '600',
-              }}
-              style={{
-                minWidth: calculateColumnWidth(value, col.key),
-              }}
-              bodyStyle={{
-                color: '#000',
-                fontSize: '1.2rem',
-              }}
-              filter={col.filter}
-              filterPlaceholder={col.filterPlaceholder}
-              filterField={col.filterField || col.key}
-              body={(row) => {
-                return (
-                  <>
-                    <button
-                      className='cursor-pointer'
-                      onClick={(e) => {
-                        e.preventDefault();
-                        palletsDetailHandler(row.shipment_id);
-                      }}
-                    >
-                      Pallet Details
-                    </button>
-                    {/* <Tooltip
-                        target={`#${id}`}
-                        content='View Details'
-                        position='top'
-                      /> */}
-                  </>
-                );
-              }}
-              frozen={true}
-              alignFrozen={'right'}
               align={'center'}
               alignHeader={'center'}
             />

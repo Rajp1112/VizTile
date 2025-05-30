@@ -13,10 +13,11 @@ import ProductKeyFeatures from './ProductKeyFeatures';
 
 import IntroContent from './IntroContent';
 import Contact from './Contact';
-import Hero from './hero';
+import Hero from './Hero';
 import HeroFactors from './HeroFactors';
 import Footer from '../../components/Footer';
 import { useAuth } from '../../store/auth';
+import Loader from '../../components/Loader';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const Home = () => {
   useEffect(() => {
     reloadUser();
   }, []);
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
@@ -34,8 +36,8 @@ const Home = () => {
 
   return (
     <>
-      {loading ? (
-        <IntroContent />
+      {userLoading ? (
+        <Loader />
       ) : (
         <>
           <div
@@ -55,7 +57,7 @@ const Home = () => {
           <ProductKeyFeatures />
           {/* <WhyWeAreBetter /> */}
           <HeroFactors />
-          <Contact />
+          <Contact isLoggedIn={isLoggedIn} />
           <Footer />
         </>
       )}

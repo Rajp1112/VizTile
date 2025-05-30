@@ -5,6 +5,8 @@ import AdminDashboard from './AdminDashboard';
 import UserProfile from './UserProfile'; // import your User Profile component
 import UserTable from './UserDataTable';
 import { useAuth } from '../../store/auth';
+import API_BASE_URL from '../../store/apiConfig';
+import ENDPOINTS from '../../store/endpoint';
 
 export default function MainDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -15,12 +17,15 @@ export default function MainDashboard() {
 
   const getAllUsersData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/admin/users', {
-        method: 'GET',
-        headers: {
-          Authorization: authorizationToken,
-        },
-      });
+      const response = await fetch(
+        `${API_BASE_URL}${ENDPOINTS.ADMIN_DASHBOARD}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: authorizationToken,
+          },
+        }
+      );
 
       const data = await response.json();
       console.log('Fetched Users Data:', data); // Debugging log
@@ -52,7 +57,7 @@ export default function MainDashboard() {
       case 'Table List':
         return <UserTable users={users} />;
       default:
-        return <AdminDashboard />; // fallback
+        return <AdminDashboard />;
     }
   };
 

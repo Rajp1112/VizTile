@@ -1,12 +1,15 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import API_BASE_URL from './apiConfig';
+import ENDPOINTS from './endpoint';
+import { set } from 'react-hook-form';
 
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [user, setUser] = useState(null);
-  const [userLoading, setUserLoading] = useState(true);
+  const [userLoading, setUserLoading] = useState(false);
   const [services, setServices] = useState('');
   const authorizationToken = `Bearer ${token}`;
 
@@ -27,21 +30,27 @@ export const AuthProvider = ({ children }) => {
   const userAuthentication = async () => {
     setUserLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/auth/user', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: authorizationToken,
-        },
-      });
+      const response = await fetch(
+        `${API_BASE_URL}${ENDPOINTS.USER.GET_USER}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: authorizationToken,
+          },
+        }
+      );
 
       if (response.ok) {
         const data = await response.json();
+        setUserLoading(false);
         setUser(data);
       } else {
+        setUserLoading(false);
         setUser(null);
       }
     } catch (error) {
+      setUserLoading(false);
       console.log(error);
       setUser(null);
     } finally {
@@ -51,7 +60,7 @@ export const AuthProvider = ({ children }) => {
 
   const getServices = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/data/service', {
+      const response = await fetch(`${API_BASE_URL}${ENDPOINTS.SERVICE}`, {
         method: 'GET',
       });
 
@@ -64,14 +73,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    if (token) {
-      userAuthentication();
-    } else {
-      setUserLoading(false);
-    }
-    getServices();
-  }, [token]);
+  // useEffect(() => {
+  //   if (token) {
+  //     // userAuthentication();
+  //   } else {
+  //     setUserLoading(false);
+  //   }
+  //   // getServices();
+  // }, [token]);
 
   return (
     <AuthContext.Provider

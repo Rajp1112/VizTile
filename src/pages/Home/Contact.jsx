@@ -4,11 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Toast } from 'primereact/toast';
 import { motion, useAnimation } from 'framer-motion';
+import ENDPOINTS from '../../store/endpoint';
+import API_BASE_URL from '../../store/apiConfig';
 
-const Contact = () => {
+const Contact = ({ isLoggedIn }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
   const controls = useAnimation();
@@ -32,14 +35,49 @@ const Contact = () => {
     return () => observer.disconnect();
   }, [controls]);
 
-  const onSubmit = (data) => {
-    console.log(data);
-    toast.current.show({
-      severity: 'success',
-      summary: 'Success',
-      detail: 'Form submitted successfully!',
-      life: 3000,
-    });
+  const onSubmit = async (data) => {
+    if (!isLoggedIn) {
+      toast.current.show({
+        severity: 'warn',
+        summary: 'Warning',
+        detail: 'Please log in to submit the form',
+        life: 3000,
+      });
+      return;
+    }
+    try {
+      const response = await fetch(`${API_BASE_URL}${ENDPOINTS.CONTACT}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const res_data = await response.json();
+        toast.current.show({
+          severity: 'success',
+          summary: 'Success',
+          detail: res_data.msg || 'Message sent successfully!',
+          life: 3000,
+        });
+        reset();
+      } else {
+        toast.current.show({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Failed to submit the form',
+          life: 3000,
+        });
+      }
+    } catch (error) {
+      console.error('An error occurred:', error);
+      toast.current.show({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'An error occurred. Please try again later.',
+        life: 3000,
+      });
+    }
   };
 
   return (
@@ -88,7 +126,7 @@ const Contact = () => {
                     className='text-gray-500 mr-2'
                   />
                   <input
-                    {...register('firstName', {
+                    {...register('first_name', {
                       // required: 'First name is required',
                     })}
                     type='text'
@@ -102,7 +140,7 @@ const Contact = () => {
                     className='text-gray-500 mr-2'
                   />
                   <input
-                    {...register('lastName', {
+                    {...register('last_name', {
                       // required: 'Last name is required',
                     })}
                     type='text'

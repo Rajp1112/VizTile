@@ -4,11 +4,36 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
 import Logo from '/assets/LOGO/Logo2.png';
-
+import {
+  Avatar,
+  IconButton,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  Divider,
+} from '@mui/material';
+import {
+  Logout as LogoutIcon,
+  Login as LoginIcon,
+  PersonAdd as RegisterIcon,
+  Dashboard as DashboardIcon,
+  Visibility as TilesIcon,
+  AdminPanelSettings as AdminIcon,
+} from '@mui/icons-material';
 const Navbar = ({ user, isLoggedIn }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('home');
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleOpen = (event) => setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
+
+  const go = (path) => {
+    handleClose();
+    navigate(path);
+  };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -114,53 +139,112 @@ const Navbar = ({ user, isLoggedIn }) => {
           ))}
         </ul>
 
-        <div className='hidden md:flex gap-1'>
-          <button
-            className='flex gap-3 items-center bg-indigo-600 hover:opacity-90 cursor-pointer text-white font-bold py-2 px-4 rounded-full'
-            onClick={() => navigate('/tiles-view')}
+        <div className='hidden md:flex items-center'>
+          {/* Toggle button (avatar if logged-in, generic icon otherwise) */}
+          <IconButton
+            onClick={handleOpen}
+            size='small'
+            sx={{ ml: 1 }}
+            aria-controls={open ? 'nav-menu' : undefined}
+            aria-haspopup='true'
+            aria-expanded={open ? 'true' : undefined}
           >
-            <FontAwesomeIcon icon={faEye} />
-            Visualize Your Tiles
-          </button>
-          {!isLoggedIn && (
-            <>
-              <button
-                className='flex gap-3 items-center bg-indigo-600 hover:opacity-90 cursor-pointer text-white font-bold py-2 px-4 rounded-full'
-                onClick={() => navigate('/login')}
-              >
-                {/* <FontAwesomeIcon icon={faEye} /> */}
-                Login
-              </button>
-              <button
-                className='flex gap-3 items-center bg-indigo-600 hover:opacity-90 cursor-pointer text-white font-bold py-2 px-4 rounded-full'
-                onClick={() => navigate('/register')}
-              >
-                Register
-              </button>
-            </>
-          )}
-          {isLoggedIn && (
-            <>
-              <button
-                className='flex gap-3 items-center bg-indigo-600 hover:opacity-90 cursor-pointer text-white font-bold py-2 px-4 rounded-full'
-                onClick={() => navigate('/logout')}
-              >
-                Logout
-              </button>
+            {isLoggedIn ? (
+              <Avatar
+                sx={{ width: 32, height: 32, color: 'black' }}
+                alt={user?.userData?.username || 'user'}
+                src={user?.userData?.avatarUrl || undefined}
+              />
+            ) : (
+              /* fallback icon */
+              <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main' }}>
+                {user?.userData?.username?.[0]?.toUpperCase() || 'M'}
+              </Avatar>
+            )}
+          </IconButton>
 
-              <button className='flex gap-3 items-center bg-indigo-600 hover:opacity-90 cursor-pointer text-white font-bold py-2 px-4 rounded-full'>
-                {user?.userData?.username}
-              </button>
-              {user?.userData?.isAdmin && (
-                <button
-                  className='flex gap-3 items-center bg-indigo-600 hover:opacity-90 cursor-pointer text-white font-bold py-2 px-4 rounded-full'
-                  onClick={() => navigate('/admin')}
-                >
-                  Admin
-                </button>
-              )}
-            </>
-          )}
+          <Menu
+            anchorEl={anchorEl}
+            id='nav-menu'
+            open={open}
+            onClose={handleClose}
+            onClick={handleClose}
+            PaperProps={{
+              elevation: 4,
+              sx: {
+                mt: 1.5,
+                minWidth: 200,
+                bgcolor: '#eef2ff',
+                color: 'black',
+                '& .MuiMenuItem-root:hover': {
+                  bgcolor: 'rgba(255,255,255,0.08)',
+                },
+              },
+            }}
+            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          >
+            {/* === Username always shown at top === */}
+            <MenuItem
+              sx={{
+                fontWeight: 'bold',
+                opacity: 1,
+                cursor: 'default',
+                fontSize: '0.95rem',
+                '&:hover': {
+                  bgcolor: 'transparent',
+                },
+              }}
+            >
+              {user?.userData?.username ?? 'User'}
+            </MenuItem>
+            <Divider sx={{ bgcolor: 'rgba(255,255,255,0.15)' }} />
+
+            {/* Always visible */}
+            <MenuItem onClick={() => go('/tiles-view')}>
+              <ListItemIcon>
+                <TilesIcon fontSize='small' sx={{ color: 'black' }} />
+              </ListItemIcon>
+              Visualize your Tiles
+            </MenuItem>
+
+            {!isLoggedIn && (
+              <>
+                <MenuItem onClick={() => go('/login')}>
+                  <ListItemIcon>
+                    <LoginIcon fontSize='small' sx={{ color: 'black' }} />
+                  </ListItemIcon>
+                  Login
+                </MenuItem>
+                <MenuItem onClick={() => go('/register')}>
+                  <ListItemIcon>
+                    <RegisterIcon fontSize='small' sx={{ color: 'black' }} />
+                  </ListItemIcon>
+                  Register
+                </MenuItem>
+              </>
+            )}
+
+            {isLoggedIn && (
+              <>
+                <MenuItem onClick={() => go('/logout')}>
+                  <ListItemIcon>
+                    <LogoutIcon fontSize='small' sx={{ color: 'black' }} />
+                  </ListItemIcon>
+                  Logout
+                </MenuItem>
+
+                {user?.userData?.isAdmin && (
+                  <MenuItem onClick={() => go('/admin')}>
+                    <ListItemIcon>
+                      <AdminIcon fontSize='small' sx={{ color: 'black' }} />
+                    </ListItemIcon>
+                    Admin
+                  </MenuItem>
+                )}
+              </>
+            )}
+          </Menu>
         </div>
       </div>
     </nav>

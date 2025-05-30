@@ -5,6 +5,8 @@ import { useAuth } from '../store/auth';
 import LoginLoader from './LoginLoader'; // Assuming LoginLoader is the correct component
 import { toast } from 'react-toastify';
 import Loader from './Loader';
+import ENDPOINTS from '../store/endpoint';
+import API_BASE_URL from '../store/apiConfig';
 
 const Register = () => {
   const {
@@ -20,13 +22,16 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        `${API_BASE_URL}${ENDPOINTS.AUTH.REGISTER}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (response.ok) {
         const res_data = await response.json();
@@ -62,6 +67,13 @@ const Register = () => {
         <Loader />
       ) : (
         <div className='bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-gray-900 via-gray-900 to-purple-800 bottom-0 leading-5 h-full w-full overflow-hidden'>
+          <button
+            onClick={() => navigate('/')}
+            className='absolute top-4 left-4 bg-white text-black px-4 py-2 rounded'
+            style={{ zIndex: 9999 }}
+          >
+            Back
+          </button>
           <div className='relative   min-h-screen  sm:flex sm:flex-row  justify-center bg-transparent rounded-3xl shadow-xl'>
             <div className='flex-col flex  self-center lg:px-14 sm:max-w-4xl xl:max-w-md  z-10'>
               <div className='self-start hidden lg:flex flex-col  text-gray-300'>
@@ -234,7 +246,13 @@ const Register = () => {
                   style={{ backgroundColor: 'rgb(91 33 182)' }}
                 >
                   {loading ? 'Registering...' : 'Register'}
-                </button>{' '}
+                </button>
+                <p className='mt-4 text-sm text-gray-600'>
+                  Already have an account?{' '}
+                  <a href='/login' className='text-blue-500 hover:underline'>
+                    Login here
+                  </a>
+                </p>
               </form>
             </div>
             <svg

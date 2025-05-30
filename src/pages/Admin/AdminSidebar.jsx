@@ -9,6 +9,7 @@ import {
   BellRing,
   X,
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const SidebarButton = ({ icon: Icon, label, active, onClick }) => (
   <button
@@ -40,7 +41,10 @@ export default function AdminSidebar({
     { label: 'Maps', icon: MapPin },
     { label: 'Notifications', icon: BellRing },
   ];
-
+  const navigate = useNavigate();
+  const handleBack = () => {
+    navigate('/');
+  };
   return (
     <>
       {/* Mobile Sidebar */}
@@ -93,8 +97,13 @@ export default function AdminSidebar({
 
       {/* Desktop Sidebar */}
       <aside className='hidden lg:flex lg:flex-col lg:w-64 bg-white dark:bg-slate-800 border-r border-black/5 dark:border-white/10 p-4'>
-        <h1 className='text-xl font-bold text-primary tracking-wide mb-6 text-center'>
-          Creative Tim
+        <h1 className='text-xl font-bold text-primary tracking-wide mb-16 text-center'>
+          <button
+            onClick={handleBack}
+            className='absolute top-4 left-4 bg-white text-black px-4 py-2 rounded'
+          >
+            Back
+          </button>
         </h1>
         <nav className='space-y-1'>
           {tabs.map(({ label, icon }) => (
