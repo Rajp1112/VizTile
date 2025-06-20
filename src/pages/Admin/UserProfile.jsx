@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
 import { Settings, Link, Twitter, Facebook, Instagram } from 'lucide-react';
 import ProfileImage from '../../../public/assets/UserProfileImages/DummyImage.jpg';
-import ProfileBGImage from '../../../public/assets/UserProfileImages/DummyProfi;eBGImage.jpg';
+import ProfileBGImage from '../../../public/assets/UserProfileImages/DummyProfileBGImage.jpg';
 import { toast } from 'react-toastify';
 import API_BASE_URL from '../../store/apiConfig';
 import ENDPOINTS from '../../store/endpoint';

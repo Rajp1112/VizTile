@@ -39,26 +39,26 @@ export default function UserDataTable({ users }) {
     },
 
     // /* categorical filters (roles & status) */
-    // {
-    //   key: 'role',
-    //   header: 'Role',
-    //   representative: 'role',
-    //   filter: true,
-    //   filterPlaceholder: 'Filter by Role',
-    //   filterType: 'dropdown', // will auto-populate unique values
-    //   filterable: true,
-    //   showFilterMatchModes: false,
-    // },
-    // {
-    //   key: 'status',
-    //   header: 'Status',
-    //   representative: 'status',
-    //   filter: true,
-    //   filterPlaceholder: 'Filter by Status',
-    //   filterType: 'dropdown',
-    //   filterable: true,
-    //   showFilterMatchModes: false,
-    // },
+    {
+      key: 'address',
+      header: 'Address',
+      // representative: 'address',
+      // filter: true,
+      // filterPlaceholder: 'Filter by Role',
+      // filterType: 'dropdown', // will auto-populate unique values
+      // filterable: true,
+      // showFilterMatchModes: false,
+    },
+    {
+      key: 'city',
+      header: 'City',
+      // representative: 'city',
+      // filter: true,
+      // filterPlaceholder: 'Filter by Status',
+      // filterType: 'dropdown',
+      // filterable: true,
+      // showFilterMatchModes: false,
+    },
 
     /* dates – using multiselect keeps parity with your grid’s behaviour */
     {
@@ -72,13 +72,13 @@ export default function UserDataTable({ users }) {
       // showFilterMatchModes: false,
     },
 
-    {
-      key: null,
-      header: 'Actions',
-      // filter: false,
+    // {
+    //   key: null,
+    //   header: 'Actions',
+    //   // filter: false,
 
-      // filterType: 'dropdown',
-    },
+    //   // filterType: 'dropdown',
+    // },
   ];
 
   const calculateColumnWidth = (data, field, padding = 10) => {

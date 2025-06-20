@@ -17,12 +17,11 @@ export default function AdminHeader({ setSidebarOpen }) {
         <Search className='w-4 h-4 text-gray-400 shrink-0' />
         <input
           type='text'
-          placeholder='Search'
-          className='w-full bg-transparent text-sm focus:outline-none placeholder:text-gray-400'
+          placeholder='Search...'
+          className='w-full bg-transparent text-sm focus:outline-none placeholder:text-black text-black '
         />
       </div>
 
-      {/* Notification */}
       <button className='relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-slate-700'>
         <Bell className='w-5 h-5 text-gray-600 dark:text-gray-300' />
         <span className='absolute -top-1 -right-1 flex items-center justify-center w-4 h-4 text-[10px] leading-none rounded-full bg-primary text-white'>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../store/auth';
 import LoginLoader from './LoginLoader'; // Assuming LoginLoader is the correct component
 import { toast } from 'react-toastify';
@@ -93,6 +93,23 @@ const Register = () => {
                 <h2 className='text-2xl font-bold mb-4 text-black'>Register</h2>{' '}
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
                   {' '}
+                  <div className='col-span-1 md:col-span-2'>
+                    <label className='block text-sm font-bold mb-2 text-black '>
+                      ProfilPicture
+                    </label>{' '}
+                    <input
+                      {...register('profilePicture', { required: true })}
+                      className='w-full px-3 py-2 border rounded'
+                      style={{ backgroundColor: 'transparent', color: '#000' }}
+                      type='file'
+                      accept='image/*'
+                    />{' '}
+                    {errors.profilePicture && (
+                      <span className='text-red-500 text-xs'>
+                        Username is required
+                      </span>
+                    )}{' '}
+                  </div>
                   <div className='col-span-1 md:col-span-2'>
                     <label className='block text-sm font-bold mb-2 text-black '>
                       USERNAME{' '}
@@ -249,9 +266,9 @@ const Register = () => {
                 </button>
                 <p className='mt-4 text-sm text-gray-600'>
                   Already have an account?{' '}
-                  <a href='/login' className='text-blue-500 hover:underline'>
+                  <Link to='/login' className='text-blue-500 hover:underline'>
                     Login here
-                  </a>
+                  </Link>
                 </p>
               </form>
             </div>

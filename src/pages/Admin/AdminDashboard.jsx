@@ -12,6 +12,8 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
+  AreaChart,
+  Area,
 } from 'recharts';
 import { User, Bell, BellRing } from 'lucide-react';
 
@@ -21,7 +23,7 @@ const usersData = [
   { time: '15:00', open: 420, click: 80, second: 60 },
   { time: '18:00', open: 480, click: 160, second: 120 },
   { time: '21:00', open: 540, click: 200, second: 180 },
-  { time: '00:00', open: 650, click: 300, second: 240 },
+  { time: '23:00', open: 650, click: 300, second: 240 },
   { time: '03:00', open: 720, click: 380, second: 260 },
   { time: '06:00', open: 730, click: 390, second: 270 },
 ];
@@ -35,11 +37,11 @@ const emailStats = [
 const salesData = [
   { month: 'Jan', tax: 400, total: 240 },
   { month: 'Feb', tax: 300, total: 139 },
-  { month: 'Mar', tax: 200, total: 980 },
+  { month: 'Mar', tax: 200, total: 750 },
   { month: 'Apr', tax: 278, total: 390 },
   { month: 'May', tax: 189, total: 480 },
   { month: 'Jun', tax: 239, total: 380 },
-  { month: 'Jul', tax: 349, total: 430 },
+  { month: 'Jule', tax: 349, total: 430 },
 ];
 
 const StatCard = ({ icon: Icon, title, value, footer }) => (
@@ -62,7 +64,6 @@ const StatCard = ({ icon: Icon, title, value, footer }) => (
 export default function AdminDashboard() {
   return (
     <main className='flex-1 p-4 md:p-6 overflow-y-auto space-y-6'>
-      {/* KPI cards */}
       <section className='grid gap-4 sm:grid-cols-2 xl:grid-cols-4'>
         <StatCard
           icon={User}
@@ -99,26 +100,25 @@ export default function AdminDashboard() {
           </h2>
           <p className='text-xs text-gray-400 mb-4'>24 Hours performance</p>
           <ResponsiveContainer width='100%' height={260}>
-            <LineChart
-              data={usersData}
-              margin={{ top: 0, right: 16, left: -24, bottom: 0 }}
-            >
+            <LineChart data={usersData}>
               <XAxis
                 dataKey='time'
                 stroke='#cbd5e1'
                 fontSize={12}
-                tickLine={false}
-                axisLine={false}
+                tickLine={true}
+                axisLine={true}
+                padding={{ left: 20, right: 20 }}
               />
               <YAxis
                 stroke='#cbd5e1'
                 fontSize={12}
-                tickLine={false}
-                axisLine={false}
+                tickLine={true}
+                axisLine={true}
+                dx={-10}
               />
               <Tooltip wrapperClassName='!rounded-lg !shadow-lg' />
               <Legend
-                verticalAlign='top'
+                verticalAlign='bottom'
                 height={24}
                 iconType='circle'
                 wrapperStyle={{ paddingBottom: 8 }}
@@ -184,28 +184,25 @@ export default function AdminDashboard() {
         {/* Bar Chart */}
         <div className='xl:col-span-2 bg-white dark:bg-slate-800 rounded-2xl shadow-md p-4 flex flex-col'>
           <h2 className='text-lg font-semibold text-gray-700 dark:text-gray-200'>
-            2017 Sales
+            2025 Sales
           </h2>
           <p className='text-xs text-gray-400 mb-4'>
             All products including Taxes
           </p>
           <ResponsiveContainer width='100%' height={260}>
-            <BarChart
-              data={salesData}
-              margin={{ top: 0, right: 16, left: -24, bottom: 0 }}
-            >
+            <BarChart data={salesData}>
               <XAxis
                 dataKey='month'
                 stroke='#cbd5e1'
                 fontSize={12}
-                tickLine={false}
-                axisLine={false}
+                tickLine={true}
+                axisLine={true}
               />
               <YAxis
                 stroke='#cbd5e1'
                 fontSize={12}
-                tickLine={false}
-                axisLine={false}
+                tickLine={true}
+                axisLine={true}
               />
               <Tooltip wrapperClassName='!rounded-lg !shadow-lg' />
               <Legend iconType='circle' />
@@ -219,46 +216,59 @@ export default function AdminDashboard() {
           </ResponsiveContainer>
           <p className='text-xs text-gray-400 mt-2'>Updated 1 day ago</p>
         </div>
-
-        {/* Tasks */}
+        {/* Combined Area Chart (Traffic + Signups) */}
         <div className='bg-white dark:bg-slate-800 rounded-2xl shadow-md p-4 flex flex-col'>
-          <h2 className='text-lg font-semibold text-gray-700 dark:text-gray-200 mb-3'>
-            Tasks
+          <h2 className='text-lg font-semibold text-gray-700 dark:text-gray-200'>
+            Traffic vs Signups
           </h2>
-          <ul className='space-y-3 flex-1 overflow-auto text-sm text-gray-500 dark:text-gray-400'>
-            <li className='flex items-center gap-2'>
-              <input id='task-1' type='checkbox' className='shrink-0' />
-              <label htmlFor='task-1' className='cursor-pointer'>
-                Make a calendar for May 2021
-              </label>
-            </li>
-            <li className='flex items-center gap-2'>
-              <input
-                id='task-2'
-                type='checkbox'
-                className='shrink-0'
-                defaultChecked
+          <p className='text-xs text-gray-400 mb-4'>Weekly comparison</p>
+          <ResponsiveContainer width='100%' height={260}>
+            <AreaChart
+              data={[
+                { day: 'Mon', visits: 1200, signups: 300 },
+                { day: 'Tue', visits: 2100, signups: 500 },
+                { day: 'Wed', visits: 800, signups: 200 },
+                { day: 'Thu', visits: 1600, signups: 450 },
+                { day: 'Fri', visits: 900, signups: 2500 },
+                { day: 'Sat', visits: 1700, signups: 600 },
+                { day: 'Sun', visits: 1500, signups: 3050 },
+              ]}
+            >
+              <XAxis
+                dataKey='day'
+                stroke='#cbd5e1'
+                fontSize={12}
+                tickLine={true}
+                axisLine={true}
+                padding={{ left: 20, right: 20 }}
               />
-              <label htmlFor='task-2' className='cursor-pointer'>
-                Send invitations for the event
-              </label>
-            </li>
-            <li className='flex items-center gap-2'>
-              <input id='task-3' type='checkbox' className='shrink-0' />
-              <label htmlFor='task-3' className='cursor-pointer'>
-                Create a logo for the project
-              </label>
-            </li>
-            <li className='flex items-center gap-2'>
-              <input id='task-4' type='checkbox' className='shrink-0' />
-              <label htmlFor='task-4' className='cursor-pointer'>
-                Develop UI components
-              </label>
-            </li>
-          </ul>
-          <button className='text-primary hover:underline self-start mt-3 text-sm font-semibold'>
-            + Create new task
-          </button>
+              <YAxis
+                stroke='#cbd5e1'
+                fontSize={12}
+                tickLine={true}
+                axisLine={true}
+              />
+              <Tooltip wrapperClassName='!rounded-lg !shadow-lg' />
+              <Legend iconType='circle' />
+              <Area
+                type='monotone'
+                dataKey='visits'
+                stroke='var(--color-primary)' // blue
+                fill='var(--color-primary)'
+                fillOpacity={0.25}
+                name='Visits'
+              />
+              <Area
+                type='monotone'
+                dataKey='signups'
+                stroke='#f97316' // orange
+                fill='#f97316'
+                fillOpacity={0.25}
+                name='Signups'
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+          <p className='text-xs text-gray-400 mt-2'>Updated just now</p>
         </div>
       </section>
     </main>

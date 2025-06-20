@@ -2,7 +2,7 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { motion } from 'framer-motion';
 import { EffectFade, Autoplay } from 'swiper/modules';
-import slide1 from '../../../public/assets/SliderImage/sliderImage01.webp';
+import slide1 from '/assets/SliderImage/sliderImage01.webp';
 import slide2 from '/assets/SliderImage/sliderImage02.jpg';
 import slide3 from '/assets/SliderImage/sliderImage03.jpg';
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../store/auth';
 import { toast } from 'react-toastify';
 import Loader from '../../components/Loader';
@@ -133,9 +133,12 @@ const Login = () => {
                 {/*  Register link  */}
                 <p className='mt-4 text-sm text-gray-600'>
                   Don&apos;t have an account?{' '}
-                  <a href='/register' className='text-blue-500 hover:underline'>
+                  <Link
+                    to='/register'
+                    className='text-blue-500 hover:underline'
+                  >
                     Register here
-                  </a>
+                  </Link>
                 </p>
               </form>
             </div>
